@@ -1,0 +1,322 @@
+{
+	"info": {
+		"_postman_id": "a71a7905-91ee-4730-bde9-99745584cab7",
+		"name": "ServiceNow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Incidents",
+			"item": [
+				{
+					"name": "Get All Incidents",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "02c6c55b-c7f0-48ba-8228-9178f99b66fb",
+								"exec": [
+									"resp = pm.response.json()",
+									"console.log(resp)",
+									"console.log(resp.result.length)",
+									"console.log(resp.result[resp.result.length - 1].number)",
+									"//console.log(Math.floor(Math.random() * Math.floor(resp.result.length)));",
+									"rand =Math.floor(Math.random() * Math.floor(resp.result.length));",
+									"console.log(rand)",
+									"console.log(resp.result[rand].sys_id)",
+									"",
+									"pm.test(\"Test Passed\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{Env_ServerIp}}/api/now/v2/table/{{coll_table}}?sysparm_fields=number,sys_id",
+							"protocol": "https",
+							"host": [
+								"{{Env_ServerIp}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"{{coll_table}}"
+							],
+							"query": [
+								{
+									"key": "number",
+									"value": "INC0010008",
+									"disabled": true
+								},
+								{
+									"key": "sysparm_fields",
+									"value": "number,sys_id"
+								}
+							]
+						},
+						"description": "Get all the incidents from ServiceNow (with no filter)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new incident",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9ecca72e-63ef-4bb9-a6b6-dff2382332be",
+								"exec": [
+									"resp = pm.response.json();",
+									"console.log(resp)",
+									"console.log(resp.result.sys_id)",
+									"console.log(resp.result.opened_by.link)",
+									"pm.globals.set(\"gbl_sys_id\", resp.result.sys_id);",
+									"",
+									"pm.test(\"Test Passed\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Created by PostMan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{Env_ServerIp}}/api/now/v2/table/{{coll_table}}?",
+							"protocol": "https",
+							"host": [
+								"{{Env_ServerIp}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"{{coll_table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "sys_id, number",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Create incident"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Incidents (XML)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://{{Env_ServerIp}}/api/now/v2/table/{{coll_table}}?",
+							"protocol": "https",
+							"host": [
+								"{{Env_ServerIp}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"{{coll_table}}"
+							],
+							"query": [
+								{
+									"key": "sysparm_fields",
+									"value": "number, category",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "software",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all the incidents from ServiceNow (with no filter)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Incident",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"short_description\" : \"Updated by PostMan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{Env_ServerIp}}/api/now/v2/table/{{coll_table}}/e8d80032db704010cbea2bfa4b9619b0",
+							"protocol": "https",
+							"host": [
+								"{{Env_ServerIp}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"{{coll_table}}",
+								"e8d80032db704010cbea2bfa4b9619b0"
+							]
+						},
+						"description": "Create incident"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a incident",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{Env_ServerIp}}/api/now/v2/table/incident/{{gbl_sys_id}}",
+							"protocol": "https",
+							"host": [
+								"{{Env_ServerIp}}"
+							],
+							"path": [
+								"api",
+								"now",
+								"v2",
+								"table",
+								"incident",
+								"{{gbl_sys_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ChangeRequests",
+			"item": [],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "678c8e90-37ba-48fd-84ba-5012abea2a36",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b456b6f0-08c9-4c47-8b72-28553bc2ef84",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "Tuna@123",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "33b78f4e-2a58-4c35-91f7-2e038c34f1b8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0ce671d8-f9a8-4a9a-a880-c5ecf802ed4d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ff9fec25-86df-4faa-bf53-d1907c9b7283",
+			"key": "coll_table",
+			"value": "incident",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,99 @@
+{
+	"info": {
+		"_postman_id": "af6ea163-1470-4f9f-926e-c9b3b36b9135",
+		"name": "Railways API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all trains that are running between Chennai to Bangalore",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7faa051-8906-4b26-b3d7-fac648364191",
+						"exec": [
+							"resp = pm.response.json();",
+							"for(i=0;i<resp.trains.length;i++){",
+							"    console.log(resp.trains[i].number)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.railwayapi.com/v2/between/source/MAS/dest/SBC/date/03-11-2019/apikey/7eshh06s6p",
+					"protocol": "https",
+					"host": [
+						"api",
+						"railwayapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"between",
+						"source",
+						"MAS",
+						"dest",
+						"SBC",
+						"date",
+						"03-11-2019",
+						"apikey",
+						"7eshh06s6p"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all the available seats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b48fed5d-8224-46ef-8c28-073067b547e4",
+						"exec": [
+							"resp = pm.response.json();",
+							"//console.log(resp.train.classes[0].code)",
+							"for(i=0;i<resp.train.classes.length;i++){",
+							"    //console.log(resp.train.classes[i].code)",
+							"    if(resp.train.classes[i].code == '2S'){",
+							"        console.log(resp.train.classes[i].available)",
+							"    }",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.railwayapi.com/v2/name-number/train/15228/apikey/7eshh06s6p/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"railwayapi",
+						"com"
+					],
+					"path": [
+						"v2",
+						"name-number",
+						"train",
+						"15228",
+						"apikey",
+						"7eshh06s6p",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

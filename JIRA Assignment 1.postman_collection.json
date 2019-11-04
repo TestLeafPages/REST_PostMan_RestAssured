@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "9edd0910-9d3b-48d5-b078-3e5c4dffd51f",
+		"name": "JIRA Assignment 1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Issues",
+			"item": [
+				{
+					"name": "Create Issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3566e8f2-3a7a-42b8-8419-6da1d414ccc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n       \"project\":\r\n       {\r\n          \"key\": \"NOV\"\r\n       },\r\n       \"summary\": \"New Defect\",\r\n       \"description\": \"Creating of an issue using project keys and issue type names using the REST API\",\r\n       \"issuetype\": {\r\n          \"name\": \"Bug\"\r\n       }\r\n   }\r\n}"
+						},
+						"url": {
+							"raw": "https://novservices.atlassian.net/rest/api/2/issue/",
+							"protocol": "https",
+							"host": [
+								"novservices",
+								"atlassian",
+								"net"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Issues Specific to Project",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "18b5f5e1-2436-4f27-884f-5a54788a68c8",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://novservices.atlassian.net/rest/api/2/search?jql=project=\"NOV\"",
+							"protocol": "https",
+							"host": [
+								"novservices",
+								"atlassian",
+								"net"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"search"
+							],
+							"query": [
+								{
+									"key": "jql",
+									"value": "project=\"NOV\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete issue",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0bbf86c7-ae4e-4412-a59f-e9c251064bbb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc4efa9e-5823-4903-8748-0fccae15e20a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "\n"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://novservices.atlassian.net/rest/api/2/issue/10005",
+							"protocol": "https",
+							"host": [
+								"novservices",
+								"atlassian",
+								"net"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"10005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Fields",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"fields\": \n\t{\n\t\t\"summary\": \"Updated Defect Information\"\n\t} \n}"
+						},
+						"url": {
+							"raw": "https://novservices.atlassian.net/rest/api/2/issue/10008",
+							"protocol": "https",
+							"host": [
+								"novservices",
+								"atlassian",
+								"net"
+							],
+							"path": [
+								"rest",
+								"api",
+								"2",
+								"issue",
+								"10008"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "da6a3067-da06-494e-8718-e8c8e74da1d1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "194114cd-ac81-4e09-b858-463bbf409e84",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "testleaf0103@gmail.com",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "5O9sT2adl0fnX8GUNODdEE45",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a9549084-cc6a-43f1-b8cb-25e0c416f75d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "11c4e2cd-4d6a-4365-aee9-3d3c4b16cc9f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
